@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Area Selection</title>
+    <style>
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-color: #0f2027; 
+            background-image: url('static/mainbackground3.png'); 
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* CONTAINER CAMERA FULL MÀN HÌNH */
+        #cam-fullscreen-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: black;
+            display: none; /* Mặc định ẩn */
+            z-index: 5;
+        }
+
+        .camera-video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Thay đổi từ cover sang contain */
+            background: black;
+        }
+
+        /* NÚT STOP KHI ĐANG TẬP */
+        #stop-btn-fixed {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: none;
+            padding: 15px 40px;
+            background: #ff4b2b;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        /* HIỆN TIÊU ĐỀ KHI ĐANG TẬP */
+        #floating-title {
+            position: fixed;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 24px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,1);
+            z-index: 10;
+            display: none;
+        }
+
+        /* KHUNG MENU CHÍNH */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 50px;
+            width: 500px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            z-index: 20;
+        }
+
+        .title { color: white; font-size: 28px; margin-bottom: 35px; font-weight: bold; }
+
+        .button-group { display: flex; flex-direction: column; gap: 15px; }
+
+        .choice-btn {
+            background: white; color: #1a3a5a; border: none; padding: 16px;
+            border-radius: 50px; font-size: 18px; font-weight: 600; cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .choice-btn:hover { transform: translateY(-5px); background: #e0e0e0; }
+    </style>
+</head>
+<body>
+
+    <div id="cam-fullscreen-container">
+        <img id="trainer-cam" src="" class="camera-video">
+        <h2 id="floating-title"></h2>
+        <button id="stop-btn-fixed" onclick="stopTraining()">Stop Training</button>
+    </div>
+
+    <div id="menu-card" class="glass-card">
+        <h1 class="title">Choose a practice area</h1>
+        <div class="button-group">
+            <button class="choice-btn" onclick="startTraining('shoulder')">Shoulder</button>
+            <button class="choice-btn" onclick="startTraining('elbow')">Elbow</button>
+            <button class="choice-btn" onclick="startTraining('hand')">Hand</button>
+        </div>
+    </div>
+
+    <script>
+        const camContainer = document.getElementById('cam-fullscreen-container');
+        const menuCard = document.getElementById('menu-card');
+        const camImg = document.getElementById('trainer-cam');
+        const stopBtn = document.getElementById('stop-btn-fixed');
+        const floatingTitle = document.getElementById('floating-title');
+
+        function startTraining(type) {
+            // 1. Ẩn menu
+            menuCard.style.display = 'none';
+            
+            // 2. Hiện camera và tiêu đề
+            camContainer.style.display = 'block';
+            stopBtn.style.display = 'block';
+            floatingTitle.style.display = 'block';
+            floatingTitle.innerText = type.toUpperCase() + " MODE";
+
+            // 3. Gọi luồng video
+            camImg.src = "/video_feed/" + type;
+        }
+
+        function stopTraining() {
+            // 1. Tắt luồng video
+            camImg.src = "";
+            
+            // 2. Ẩn camera, hiện lại menu
+            camContainer.style.display = 'none';
+            stopBtn.style.display = 'none';
+            floatingTitle.style.display = 'none';
+            menuCard.style.display = 'block';
+            window.stop();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+* {
+    box-sizing: border-box;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.bg-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    /* Đảm bảo ảnh nền không bị méo */
+    background: url('mainbackground2.png') no-repeat center center;
+    background-size: cover;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-box {
+    width: 100%;
+    /* Thu nhỏ max-width lại để các ô trông thanh mảnh giống Canva */
+    max-width: 320px; 
+    /* Dịch chuyển form xuống dưới để không đè lên chữ có sẵn trong ảnh */
+    margin-top: 180px; 
+    padding: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 10px 15px;
+    margin-bottom: 12px;
+    /* Viền mỏng lại một chút nhưng vẫn màu neon */
+    border: 3px solid #7df9ff; 
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.options {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    margin-bottom: 15px;
+    font-size: 0.85rem;
+}
+.options input[type="checkbox"] {
+    width: 18px;            /* Chỉnh to ra xíu cho dễ bấm giống Canva */
+    height: 18px;
+    margin: 0;              /* Xóa sạch margin mặc định của trình duyệt */
+    cursor: pointer;
+    accent-color: #7df9ff;
+}
+.options label {
+    cursor: pointer;
+    user-select: none;      /* Ngăn người dùng bôi đen chữ khi bấm nhầm */
+    line-height: 1;         /* Đảm bảo chữ không bị cao hơn ô vuông */
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    /* Bo tròn "viên thuốc" cực mạnh */
+    border-radius: 50px; 
+    border: 3px solid #7df9ff;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: all 0.2s ease;
+}
+
+.btn-login {
+    background: #2a6f97; /* Màu xanh biển đậm */
+    color: white;
+}
+
+.btn-create {
+    background: white;
+    color: #2a6f97;
+}
+
+button:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+button:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+}
+.bg-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: url('mainbackground2.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
